@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csq.mapper.DepartmentMapper">
+
+    <select id="getAllDepartment" parameterType="java.lang.Integer" resultType="com.csq.entity.Department">
+        select * from department where 1=1
+        <if test="limit != 0">
+            limit #{startPage}, #{limit}
+        </if>
+    </select>
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(*) from department
+    </select>
+    <select id="getDepartmentById" parameterType="java.lang.Integer" resultType="com.csq.entity.Department">
+        select * from department where id = #{id}
+    </select>
+    <update id="editDepartment" parameterType="com.csq.entity.Department">
+        update department
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name!=null">name=#{name},</if>
+            <if test="count!=null">count=#{count},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDepartmentById" parameterType="java.lang.Integer">
+   	 	delete from department where id = #{id}
+   	 </delete>
+
+    <insert id="addDepartment" parameterType="com.csq.entity.Department">
+        insert into department
+        (name,
+        count
+        )
+        values
+            (
+            #{name},
+            #{count}
+            )
+    </insert>
+
+</mapper>

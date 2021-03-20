@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style>
+			div{margin: 10px; border: 1px solid blue; width: 100%; height: 100%;}
+			div label{width: 100%; height: 40px; background: gray; color: white;}
+		</style>
+	</head>
+	<body>
+		<div>
+		<p>取值</p>
+		<p th:text="${welcome}">Welcome to our grocery store!</p> 
+		</div>
+		
+		<div>
+			<p>utext转义，text不转义</p>
+			  <p th:utext="${utext}">Welcome to our grocery store!</p>
+  			<p>Today is: <span th:text="${text}">13 February 2011</span></p>
+		</div>
+		 
+	 	<div><label>循环</label>
+	 		<table>
+				  <thead>
+				    <tr>
+				      <th>Name</th>
+				      <th>Price</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr th:each="prod: ${allProducts}">
+				      <td th:text="${prod.name}">Oranges</td>
+				      <td th:text="${prod.price}">0.99</td>
+				    </tr>
+				  </tbody>
+				</table>
+	 	</div>
+	 	<div>
+	 		<label>日期格式化</label>
+	 		<p>  Today is: <span th:text="${#calendars.format(today,'dd MMMM yyyy')}">13 May 2011</span> </p>
+	 	</div>
+	 	
+	 	<div>
+	 		<p th:text="${happiness.id}"></p>
+	 		<p th:text="${happiness.city}"></p>
+	 		<p th:text="${happiness.num}"></p>
+	 	</div>
+	</body>
+</html>

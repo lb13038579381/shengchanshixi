@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style>
+			div{margin: 10px; border: 1px solid blue; width: 100%; height: 100%;}
+			div label{width: 100%; height: 40px; background: gray; color: white;}
+		</style>
+	</head>
+	<body>
+	 	<div>
+	 		<label>获取对象的值</label>
+	 		<p th:text="${happiness.id}"></p>
+	 		<p th:text="${happiness.city}"></p>
+	 		<p th:text="${happiness.num}"></p>
+	 	</div>
+	</body>
+</html>

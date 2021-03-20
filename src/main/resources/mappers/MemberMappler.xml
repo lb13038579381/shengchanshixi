@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csq.mapper.MeterialMapper">
+
+    <select id="getAllMember" parameterType="java.lang.Integer" resultType="com.csq.entity.Meterial">
+        select * from meterial where 1=1
+        <if test="limit != 0">
+            limit #{startPage}, #{limit}
+        </if>
+    </select>
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(*) from meterial
+    </select>
+    <select id="getMeterialById" parameterType="java.lang.Integer" resultType="com.csq.entity.Meterial">
+        select * from meterial where id = #{id}
+    </select>
+    <update id="editMeterial" parameterType="com.csq.entity.Meterial">
+        update meterial
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name!=null">name=#{name},</if>
+            <if test="count!=null">count=#{count},</if>
+            <if test="category!=null">category=#{category},</if>
+            <if test="price!=null">price=#{price},</if>
+            <if test="remarks!=null">remarks=#{remarks},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMeterialById" parameterType="java.lang.Integer">
+   	 	delete from meterial where id = #{id}
+   	 </delete>
+
+    <insert id="addMeterial" parameterType="com.csq.entity.Meterial">
+        insert into meterial
+        (name,
+        count,
+        category,
+        price,
+        remarks
+        )
+        values
+            (
+            #{name},
+            #{count},
+            #{category},
+            #{price},
+            #{remarks}
+            )
+    </insert>
+
+</mapper>

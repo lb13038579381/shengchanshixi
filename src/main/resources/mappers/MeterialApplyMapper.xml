@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csq.mapper.MeterialApplyMapper">
+
+    <select id="getAllMeterialApply" parameterType="java.lang.Integer" resultType="com.csq.entity.MeterialApply">
+        select * from meterial_apply where 1=1
+        <if test="limit != 0">
+            limit #{startPage}, #{limit}
+        </if>
+    </select>
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(*) from meterial_apply
+    </select>
+    <select id="getMeterialApplyById" parameterType="java.lang.Integer" resultType="com.csq.entity.MeterialApply">
+        select * from meterial_apply where id = #{id}
+    </select>
+    <update id="editMeterialApply" parameterType="com.csq.entity.MeterialApply">
+        update meterial_apply
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name!=null">name=#{name},</if>
+            <if test="count!=null">count=#{count},</if>
+            <if test="department_id!=null">category=#{departmentId},</if>
+            <if test="price!=null">category=#{price},</if>
+            <if test="remarks!=null">category=#{remarks},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMeterialApplyById" parameterType="java.lang.Integer">
+   	 	delete from meterial_apply where id = #{id}
+   	 </delete>
+
+    <insert id="addMeterialApply" parameterType="com.csq.entity.MeterialApply">
+        insert into meterial_apply
+        (name,
+        count,
+        department_id,
+        time,
+        price,
+        remarks
+        )
+        values
+            (
+            #{name},
+            #{count},
+            #{departmentId},
+            #{time},
+            #{price},
+            #{remarks}
+            )
+    </insert>
+
+</mapper>

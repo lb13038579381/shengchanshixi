@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>所有页面返回结果页</title>
+		<style>
+		.msg{width: 100%; height: 45px; line-height: 45px; text-align: center;}
+			
+		</style>
+	</head>
+	<body>
+		<div>
+		<p class="msg" th:text="${result}">返回结果</p>
+		<p class="msg"><a th:href="${href}">点击查看</a></p>
+		</div>
+	</body>
+</html>

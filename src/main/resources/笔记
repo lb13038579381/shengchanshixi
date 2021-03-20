@@ -1,0 +1,3 @@
+MyBatis的笔记
+1、choose、when、otherwise的用法
+	类似于Java中的switch case default

@@ -1,0 +1,45 @@
+1、创建spring start project
+2、选择web的项目名称
+3、springboot 是一个jar,因此静态资源不存放在webapps里面，而是通过WebMvcAutoConfiguration类的addResourcesHandlers指定。
+	访问静态资源时，资源路径从resources的下一级目录开始写，如访问jquery,
+	则路径为：http://localhost:8080/sb_web/webjars/jquery/3.4.1/dist/jquery.js
+	springboot 将静态资源存放到jar包中，引入方式如上。
+	
+4、自己的静态资源如何放到springboot中。
+	1、自己达成jar包，导入springboot项目中。
+	2、spring 约定，将一些目录结构设置成静态资源存放目录，我们的静态资源放入约定的目录即可。
+	"classpath:/META-INF/resources/", "classpath:/resources/",
+			"classpath:/static/", "classpath:/public/" };
+	resources、public、static都是静态资源的路径文件夹
+	注：在项目里面访问静态页面时，不需要加文件的路径名。直接访问即可。
+5、通过welcomePageHandlerMapping()方法知，index.html为静态资源的欢迎页。
+6、网页中logo是固定名字：favicon.ico。
+
+7、编写自己的静态资源路径：
+	spring.resources.static-locations=XXX
+	注：自定义目录后，以前默认的目录会失效。
+	
+	
+8、动态资源，使用thymeleaf。
+9、spring boot通过XXXAutoConfiguration实现自动装配，修改默认值，XXXProperties(prefix+属性名)来修改属性值。
+	通过我thymeleafProperties的源码可知，只需要将文件放入目录："classpath:/templates/"；文件的后缀为：".html"
+	
+	
+所有应用实例请查看spring boot项目：sb_web
+10、增加项目的项目名称：server.servlet.context-path=XXX
+11、如果application.properties和application.yml共同指定文件，则properties的优先级高
+	如果不同，则两个配合使用。
+12、#debug=true表示查看项目中使用的包和未使用的包
+	
+	
+13、端口被占用了：解决办法
+	Win+R:->netstat -ano  -->  回车  --> netstat -ano|findstr "8080",找到8080对应的PID，然后ctrl_alt_.，进入任务管理器，结束掉8080所对应的pid的应用
+	
+	
+	
+	
+	
+	
+	
+	
+	

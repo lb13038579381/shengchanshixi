@@ -1,0 +1,5 @@
+1、所有的新增都用：insert*(Object obj)  add*(Object obj)
+2、所有的修改都用：edit*(Object obj)
+3、所有的删除都用：delete*(int id)
+4、所有的查询都用：select*List(PageData pageData)
+5、根据id查询：select*ById(int id)

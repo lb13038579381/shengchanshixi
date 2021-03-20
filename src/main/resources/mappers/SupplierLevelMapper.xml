@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csq.mapper.SupplierLevelMapper">
+
+    <select id="getAllSupplierLevel" parameterType="java.lang.Integer" resultType="com.csq.entity.SupplierLevel">
+        select * from supplier_level where 1=1
+        <if test="limit != 0">
+            limit #{startPage}, #{limit}
+        </if>
+    </select>
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(*) from supplier_level
+    </select>
+    <select id="getSupplierLevelById" parameterType="java.lang.Integer" resultType="com.csq.entity.SupplierLevel">
+        select * from supplier_level where id = #{id}
+    </select>
+    <update id="editSupplierLevel" parameterType="com.csq.entity.SupplierLevel">
+        update supplier_level
+        <trim prefix="set" suffixOverrides=",">
+            <if test="supplier_id!=null">name=#{supplierId},</if>
+            <if test="time!=null">count=#{time},</if>
+            <if test="level!=null">category=#{level},</if>
+            <if test="remarks!=null">price=#{remarks},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSupplierLevelById" parameterType="java.lang.Integer">
+   	 	delete from supplier_level where id = #{id}
+   	 </delete>
+
+    <insert id="addSupplierLevel" parameterType="com.csq.entity.SupplierLevel">
+        insert into supplier_level
+        (supplier_id,
+        time,
+        level,
+        remarks
+        )
+        values
+            (
+            #{supplierId},
+            #{time},
+            #{level},
+            #{remarks}
+            )
+    </insert>
+
+</mapper>

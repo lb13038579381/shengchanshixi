@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>供应商统计</title>
+    <link rel="stylesheet" href="../layui.css">
+    <link rel="stylesheet" href="../public.css">
+    <script type="text/javascript" src="../layui.js"></script>
+    <script type="text/javascript" src="../page.js"></script>
+
+    <script type="text/javascript" src="../webjars/jquery/3.4.1/dist/jquery.min.js"></script>
+
+</head>
+<body>
+
+<fieldset class="layui-elem-field layui-field-title"
+          style="margin-top: 0px;">
+    <legend>供应商统计</legend>
+</fieldset>
+<div class="layui-main">
+    <div class="none" id="location" th:text="${location}"></div>
+    <table class="layui-table" lay-size="lg" >
+        <colgroup>
+            <col width="5%">
+            <col width="10%">
+            <col width="10%">
+            <col width="10%">
+            <col width="10%">
+            <col width="10%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="10%">
+            <col width="10%">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>名称</th>
+            <th>产品</th>
+            <th>地址</th>
+            <th>联系方式</th>
+        </tr>
+        </thead>
+        <tr th:each="b: ${supplierList}">
+            <td th:text="${b.name}"></td>
+            <td th:text="${b.product}"></td>
+            <td th:text="${b.address}"></td>
+            <td th:text="${b.phoneNumber}"></td>
+            <td>
+                <div class="edit_delete">
+                    <a class="layui-btn-a layui-btn"
+                       th:href="'getSupplierById/'+${b.id}">编辑</a>&nbsp;&nbsp;
+                    <a class="layui-btn layui-btn-danger layui-btn-a"
+                       th:href="'deleteSupplierById/'+${b.id}">删除</a>
+                </div> <!--  <button class="layui-btn" onclick="openBusAddWin(this);">编辑</button>-->
+            </td>
+        </tr>
+    </table>
+    <!-- 新加代码 start -->
+    <div class="page">
+        <div class="layui-box layui-laypage layui-laypage-default"
+             id="layui-laypage-1">
+
+            <a href="javascript:;" class="layui-laypage-pr000000000 ev"
+               onclick="selectSchoolBusList('index');">首页</a>
+            <a href="javascript:;" class="layui-laypage-pr000000000 ev" onclick="selectSchoolBusList('pre');">上一页</a>
+
+            <a href="javascript:;"
+               class="layui-laypage-next" onclick="selectSchoolBusList('next');">下一页</a>
+            <a href="javascript:;"
+               class="layui-laypage-next" onclick="selectSchoolBusList('last');"> 尾页</a>
+            <a href="javascript:;"
+               class="layui-laypage-next">当前第<span id="currentPage" class="num" th:text="${pageData.currentPage}">3</span>页</a>
+            <a href="javascript:;"
+               class="layui-laypage-next">总页数：<span id="pages" class="num" th:text="${pageData.pages}">3</span>页</a>
+            <a href="javascript:;"
+               class="layui-laypage-next">共 计<span id="count" class="num" th:text="${pageData.count}">100 </span>条</a>
+            <span class="layui-laypage-skip">跳转到第<input id="jump" type="text" min="1"
+                                                        value="3" class="layui-input">页
+				<button type="button" class="layui-laypage-btn" onclick="selectSchoolBusList('jump');">确定</button></span>
+        </div>
+    </div>
+
+    <!-- <div class="btn">
+        <button class="layui-btn" onclick="openWin(this);">新增校车信息</button>
+    </div> -->
+</div>
+
+
+
+
+<!-- <script src="//res.layui.com/layui/dist/layui.js" charset="utf-8"></script> -->
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script type="text/javascript">
+    function openWin() {
+        layer.open({
+            type : 2,
+            content : "../school-bus-add.html",
+            area : [ '600px', '600px' ]
+        });
+    }
+    function openBusAddWin() {
+        layer.open({
+            type : 2,
+            content : "../schoolBus_edit.html",
+            area : [ '600px', '600px' ]
+        });
+    }
+
+
+    layui.use('table', function(){
+        var table = layui.table;
+        //监听表格复选框选择
+
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>
+
+</body>
+</html>

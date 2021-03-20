@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csq.mapper.AchievementMapper">
+
+    <select id="getAllAchievement" parameterType="java.lang.Integer" resultType="com.csq.entity.Achievement">
+        select * from achievement where 1=1
+        <if test="limit != 0">
+            limit #{startPage}, #{limit}
+        </if>
+    </select>
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(*) from achievement
+    </select>
+    <select id="getAchievementById" parameterType="java.lang.Integer" resultType="com.csq.entity.Achievement">
+        select * from achievement where id = #{id}
+    </select>
+    <update id="editAchievement" parameterType="com.csq.entity.Achievement">
+        update meterial
+        <trim prefix="set" suffixOverrides=",">
+            <if test="member_id!=null">name=#{memberId},</if>
+            <if test="department_id!=null">count=#{departmentId},</if>
+            <if test="level!=null">category=#{level},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAchievementById" parameterType="java.lang.Integer">
+   	 	delete from achievement where id = #{id}
+   	 </delete>
+
+    <insert id="addAchievement" parameterType="com.csq.entity.Achievement">
+        insert into achievement
+        (member_id,
+        department_id,
+        level
+        )
+        values
+            (
+            #{memberId},
+            #{departmentId},
+            #{level}
+            )
+    </insert>
+
+</mapper>

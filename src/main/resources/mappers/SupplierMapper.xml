@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csq.mapper.SupplierMapper">
+
+    <select id="getAllSupplier" parameterType="java.lang.Integer" resultType="com.csq.entity.Supplier">
+        select * from supplier where 1=1
+        <if test="limit != 0">
+            limit #{startPage}, #{limit}
+        </if>
+    </select>
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(*) from supplier
+    </select>
+    <select id="getSupplierById" parameterType="java.lang.Integer" resultType="com.csq.entity.Supplier">
+        select * from supplier where id = #{id}
+    </select>
+    <update id="editSupplier" parameterType="com.csq.entity.Supplier">
+        update supplier
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name!=null">name=#{name},</if>
+            <if test="address!=null">count=#{address},</if>
+            <if test="product!=null">category=#{product},</if>
+            <if test="phone_number!=null">price=#{phoneNumber},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSupplierById" parameterType="java.lang.Integer">
+   	 	delete from supplier where id = #{id}
+   	 </delete>
+
+    <insert id="addSupplier" parameterType="com.csq.entity.Supplier">
+        insert into supplier
+        (name,
+        product,
+        address,
+        phone_number
+        )
+        values
+            (
+            #{name},
+            #{product},
+            #{address},
+            #{phoneNumber}
+            )
+    </insert>
+
+</mapper>
