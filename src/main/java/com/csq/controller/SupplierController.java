@@ -1,5 +1,6 @@
 package com.csq.controller;
 
+import com.csq.entity.MeterialApply;
 import com.csq.entity.PageData;
 import com.csq.entity.Supplier;
 import com.csq.service.SupplierService;
@@ -18,6 +19,7 @@ public class SupplierController {
 
     @Autowired
     SupplierService supplierService;
+
     @RequestMapping("supplierList")
     public String getAll(PageData pageData, Map<String, Object> map) {
         try {
@@ -37,20 +39,6 @@ public class SupplierController {
         } catch (Exception e) {
             e.printStackTrace();
             return "supplier";
-        }
-    }
-    @RequestMapping("getSupplierById/{id}")
-    public String getMeterialById(@PathVariable("id") int id, Map<String, Object> map) {
-        Supplier supplier = null;
-        try {
-            supplier = supplierService.getSupplierById(id);
-            map.put("supplier", supplier);
-            return "supplier_edit";
-        } catch (Exception e) {
-            map.put("error", "暂无信息");
-            map.put("result", "查询失败");
-            map.put("href", "../supplierList");
-            return "result";
         }
     }
 
@@ -78,8 +66,9 @@ public class SupplierController {
             return "result";
         }
     }
+
     @RequestMapping("applySupplier")
-    public String applyMeterial(){
+    public String applyMeterial() {
         return "supplier";
     }
 
@@ -95,6 +84,22 @@ public class SupplierController {
             return "result";
         }
     }
+
+    @RequestMapping("getSupplierById/{id}")
+    public String getSupplierById(@PathVariable("id") int id, Map<String, Object> map) {
+        Supplier supplier = null;
+        try {
+            supplier = supplierService.getSupplierById(id);
+            map.put("supplier", supplier);
+            return "supplier_edit";
+        } catch (Exception e) {
+            map.put("error", "暂无信息");
+            map.put("result", "查询失败");
+            map.put("href", "../supplierList");
+            return "result";
+        }
+    }
+
     private int getPages(int limit) {
         if (limit == 0) {
             limit = 10;

@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication(scanBasePackages = "com.csq.*")
-@MapperScan("com.chen.mapper")
+@MapperScan("com.csq.mapper")
 public class SbWebApplication {
 
 	public static void main(String[] args) {

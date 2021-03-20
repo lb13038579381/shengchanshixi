@@ -19,9 +19,9 @@
         <trim prefix="set" suffixOverrides=",">
             <if test="name!=null">name=#{name},</if>
             <if test="count!=null">count=#{count},</if>
-            <if test="department_id!=null">category=#{departmentId},</if>
-            <if test="price!=null">category=#{price},</if>
-            <if test="remarks!=null">category=#{remarks},</if>
+            <if test="departmentId!=null">department_id=#{departmentId},</if>
+            <if test="price!=null">price=#{price},</if>
+            <if test="remarks!=null">remarks=#{remarks},</if>
         </trim>
         where id = #{id}
     </update>

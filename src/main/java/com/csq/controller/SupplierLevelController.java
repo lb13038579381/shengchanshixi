@@ -41,20 +41,6 @@ public class SupplierLevelController {
             return "supplierLevel";
         }
     }
-    @RequestMapping("getSupplierLevelById/{id}")
-    public String getMeterialById(@PathVariable("id") int id, Map<String, Object> map) {
-        SupplierLevel supplierLevel = null;
-        try {
-            supplierLevel = supplierLevelService.getSupplierLevelById(id);
-            map.put("supplierLevel", supplierLevel);
-            return "supplierLevel_edit";
-        } catch (Exception e) {
-            map.put("error", "暂无信息");
-            map.put("result", "查询失败");
-            map.put("href", "../supplierLevelList");
-            return "result";
-        }
-    }
 
     @RequestMapping("editSupplierLevel")
     public String editSupplier(SupplierLevel supplierLevel, Map<String, Object> map) {
@@ -94,6 +80,21 @@ public class SupplierLevelController {
             map.put("result", "删除失败");
             map.put("href", "../supplierLevelList");
             e.printStackTrace();
+            return "result";
+        }
+    }
+
+    @RequestMapping("getSupplierLevelById/{id}")
+    public String getSupplierById(@PathVariable("id") int id, Map<String, Object> map) {
+        SupplierLevel supplierLevel = null;
+        try {
+            supplierLevel = supplierLevelService.getSupplierLevelById(id);
+            map.put("supplier_level", supplierLevel);
+            return "supplierLevel_edit";
+        } catch (Exception e) {
+            map.put("error", "暂无信息");
+            map.put("result", "查询失败");
+            map.put("href", "../supplierLevelList");
             return "result";
         }
     }

@@ -17,9 +17,9 @@
     <update id="editAchievement" parameterType="com.csq.entity.Achievement">
         update meterial
         <trim prefix="set" suffixOverrides=",">
-            <if test="member_id!=null">name=#{memberId},</if>
-            <if test="department_id!=null">count=#{departmentId},</if>
-            <if test="level!=null">category=#{level},</if>
+            <if test="memberId!=null">member_id=#{memberId},</if>
+            <if test="departmentId!=null">department_id=#{departmentId},</if>
+            <if test="level!=null">level=#{level},</if>
         </trim>
         where id = #{id}
     </update>

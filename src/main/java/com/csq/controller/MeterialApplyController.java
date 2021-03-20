@@ -77,6 +77,22 @@ public class MeterialApplyController {
             return "result";
         }
     }
+
+
+    @RequestMapping("getMeterialApplyById/{id}")
+    public String getMeterialApplyById(@PathVariable("id") int id, Map<String, Object> map) {
+        MeterialApply meterialApply = null;
+        try {
+            meterialApply = meterialApplyService.getMeterialApplyById(id);
+            map.put("meterial_apply", meterialApply);
+            return "memberApply_edit";
+        } catch (Exception e) {
+            map.put("error", "暂无信息");
+            map.put("result", "查询失败");
+            map.put("href", "../meterialApplyList");
+            return "result";
+        }
+    }
     private int getPages(int limit) {
         if (limit == 0) {
             limit = 10;

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.csq.mapper.MeterialMapper">
+<mapper namespace="com.csq.mapper.MemberMapper">
 
-    <select id="getAllMember" parameterType="java.lang.Integer" resultType="com.csq.entity.Meterial">
-        select * from meterial where 1=1
+    <select id="getAllMember" parameterType="java.lang.Integer" resultType="com.csq.entity.Member">
+        select * from member where 1=1
         <if test="limit != 0">
             limit #{startPage}, #{limit}
         </if>
@@ -11,40 +11,37 @@
     <select id="getCount" resultType="java.lang.Integer">
         select count(*) from meterial
     </select>
-    <select id="getMeterialById" parameterType="java.lang.Integer" resultType="com.csq.entity.Meterial">
-        select * from meterial where id = #{id}
+    <select id="getMemberById" parameterType="java.lang.Integer" resultType="com.csq.entity.Member">
+        select * from member where id = #{id}
     </select>
-    <update id="editMeterial" parameterType="com.csq.entity.Meterial">
-        update meterial
+    <update id="editMember" parameterType="com.csq.entity.Member">
+        update member
         <trim prefix="set" suffixOverrides=",">
             <if test="name!=null">name=#{name},</if>
-            <if test="count!=null">count=#{count},</if>
-            <if test="category!=null">category=#{category},</if>
-            <if test="price!=null">price=#{price},</if>
-            <if test="remarks!=null">remarks=#{remarks},</if>
+            <if test="sex!=null">sex=#{sex},</if>
+            <if test="phoneNumber!=null">phone_number=#{phoneNumber},</if>
+            <if test="password!=null">password=#{password},</if>
         </trim>
         where id = #{id}
     </update>
 
-    <delete id="deleteMeterialById" parameterType="java.lang.Integer">
-   	 	delete from meterial where id = #{id}
+    <delete id="deleteMemberById" parameterType="java.lang.Integer">
+   	 	delete from member where id = #{id}
    	 </delete>
 
-    <insert id="addMeterial" parameterType="com.csq.entity.Meterial">
-        insert into meterial
+    <insert id="addMember" parameterType="com.csq.entity.Member">
+        insert into member
         (name,
-        count,
-        category,
-        price,
-        remarks
+        sex,
+        password,
+        phone_number
         )
         values
             (
             #{name},
-            #{count},
-            #{category},
-            #{price},
-            #{remarks}
+            #{sex},
+            #{password},
+            #{phoneNumber}
             )
     </insert>
 

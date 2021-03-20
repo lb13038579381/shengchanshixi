@@ -1,7 +1,5 @@
 package com.csq.mapper;
 
-import com.csq.entity.Achievement;
-import com.csq.entity.Department;
 import com.csq.entity.MemberDepartment;
 import com.csq.entity.PageData;
 import org.apache.ibatis.annotations.Mapper;

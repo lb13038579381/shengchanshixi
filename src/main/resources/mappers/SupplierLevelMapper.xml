@@ -17,10 +17,10 @@
     <update id="editSupplierLevel" parameterType="com.csq.entity.SupplierLevel">
         update supplier_level
         <trim prefix="set" suffixOverrides=",">
-            <if test="supplier_id!=null">name=#{supplierId},</if>
-            <if test="time!=null">count=#{time},</if>
-            <if test="level!=null">category=#{level},</if>
-            <if test="remarks!=null">price=#{remarks},</if>
+            <if test="supplierId!=null">supplier_id=#{supplierId},</if>
+            <if test="time!=null">time=#{time},</if>
+            <if test="level!=null">level=#{level},</if>
+            <if test="remarks!=null">remarks=#{remarks},</if>
         </trim>
         where id = #{id}
     </update>

@@ -18,9 +18,9 @@
         update supplier
         <trim prefix="set" suffixOverrides=",">
             <if test="name!=null">name=#{name},</if>
-            <if test="address!=null">count=#{address},</if>
-            <if test="product!=null">category=#{product},</if>
-            <if test="phone_number!=null">price=#{phoneNumber},</if>
+            <if test="address!=null">address=#{address},</if>
+            <if test="product!=null">product=#{product},</if>
+            <if test="phoneNumber!=null">phone_number=#{phoneNumber},</if>
         </trim>
         where id = #{id}
     </update>

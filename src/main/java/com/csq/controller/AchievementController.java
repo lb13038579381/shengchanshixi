@@ -1,7 +1,7 @@
 package com.csq.controller;
 
 import com.csq.entity.Achievement;
-import com.csq.entity.Member;
+import com.csq.entity.Meterial;
 import com.csq.entity.PageData;
 import com.csq.service.AchievementService;
 import com.csq.utils.DefaultUtils;
@@ -73,6 +73,21 @@ public class AchievementController {
             map.put("result", "增加失败");
             map.put("href", "../achievementList");
             e.printStackTrace();
+            return "result";
+        }
+    }
+
+    @RequestMapping("getAchievementById/{id}")
+    public String getAchievementById(@PathVariable("id") int id, Map<String, Object> map) {
+        Achievement achievement = null;
+        try {
+            achievement = achievementService.getAchievementById(id);
+            map.put("achievement", achievement);
+            return "achievement_edit";
+        } catch (Exception e) {
+            map.put("error", "暂无信息");
+            map.put("result", "查询失败");
+            map.put("href", "../achievementList");
             return "result";
         }
     }

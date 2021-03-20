@@ -1,5 +1,6 @@
 package com.csq.controller;
 
+import com.csq.entity.Achievement;
 import com.csq.entity.Department;
 import com.csq.entity.Member;
 import com.csq.entity.PageData;
@@ -74,6 +75,21 @@ public class DepartmentController {
             map.put("result", "增加失败");
             map.put("href", "../departmentList");
             e.printStackTrace();
+            return "result";
+        }
+    }
+
+    @RequestMapping("getDepartmentById/{id}")
+    public String getDepartmentById(@PathVariable("id") int id, Map<String, Object> map) {
+        Department department = null;
+        try {
+            department = departmentService.getDepartmentById(id);
+            map.put("department", department);
+            return "department_edit";
+        } catch (Exception e) {
+            map.put("error", "暂无信息");
+            map.put("result", "查询失败");
+            map.put("href", "../departmentList");
             return "result";
         }
     }

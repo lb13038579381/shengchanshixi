@@ -1,9 +1,7 @@
 package com.csq.mapper;
 
-import com.csq.entity.Meterial;
 import com.csq.entity.PageData;
 import com.csq.entity.Supplier;
-import lombok.Data;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

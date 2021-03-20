@@ -1,7 +1,6 @@
 package com.csq.mapper;
 
 import com.csq.entity.Meterial;
-import com.csq.entity.MeterialApply;
 import com.csq.entity.PageData;
 import org.apache.ibatis.annotations.Mapper;
 

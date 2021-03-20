@@ -1,5 +1,6 @@
 package com.csq.controller;
 
+import com.csq.entity.Department;
 import com.csq.entity.Member;
 import com.csq.entity.Meterial;
 import com.csq.entity.PageData;
@@ -31,7 +32,7 @@ public class MemberController {
             pageData.setCount(memberList.size());
             //设置当前页
             map.put("pageData", pageData);
-            map.put("meterialList", memberList);
+            map.put("memberList", memberList);
             map.put("location", "memberList");
             return "member";
         } catch (Exception e) {
@@ -49,7 +50,7 @@ public class MemberController {
             map.put("result", "编辑失败");
             e.printStackTrace();
         }
-        return "member_result";
+        return "memberList";
     }
 
     @RequestMapping("deleteMemberById/{id}")
@@ -74,6 +75,22 @@ public class MemberController {
             map.put("result", "增加失败");
             map.put("href", "../memberList");
             e.printStackTrace();
+            return "result";
+        }
+    }
+
+
+    @RequestMapping("getMemberById/{id}")
+    public String getMemberById(@PathVariable("id") int id, Map<String, Object> map) {
+        Member member = null;
+        try {
+            member = memberService.getMeterialById(id);
+            map.put("member", member);
+            return "member_edit";
+        } catch (Exception e) {
+            map.put("error", "暂无信息");
+            map.put("result", "查询失败");
+            map.put("href", "../memberList");
             return "result";
         }
     }
