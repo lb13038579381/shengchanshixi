@@ -44,5 +44,8 @@
             #{phoneNumber}
             )
     </insert>
+    <select id="getSupplierByName" parameterType="java.lang.String" resultType="com.csq.entity.Supplier">
+        select * from supplier where name = #{name}
+    </select>
 
 </mapper>

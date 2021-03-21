@@ -26,7 +26,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member getMeterialById(int id) {
+    public Member getMemberById(int id) {
         return memberMapper.getMemberById(id);
     }
 
@@ -43,5 +43,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void addMember(Member member) {
         memberMapper.addMember(member);
+    }
+
+    @Override
+    public Member getMemberByName(String username) {
+        return memberMapper.getMemberByName(username);
     }
 }

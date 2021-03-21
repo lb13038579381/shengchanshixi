@@ -1,5 +1,6 @@
 package com.csq.controller;
 
+import com.csq.dto.SupplierLevelDto;
 import com.csq.entity.PageData;
 import com.csq.entity.Supplier;
 import com.csq.entity.SupplierLevel;
@@ -11,21 +12,35 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("supplierController")
+@RequestMapping("supplierLevelController")
 public class SupplierLevelController {
 
     @Autowired
     SupplierLevelService supplierLevelService;
+    @Autowired
+    SupplierService supplierService;
+
     @RequestMapping("supplierLevelList")
     public String getAll(PageData pageData, Map<String, Object> map) {
         try {
-
             pageData = DefaultUtils.getPageData(pageData);
-            List<SupplierLevel> supplierLevelList = supplierLevelService.getAllSupplierLevel(pageData);
+            List<SupplierLevel> supplierLevelListPre = supplierLevelService.getAllSupplierLevel(pageData);
+            List<SupplierLevelDto> supplierLevelList = new ArrayList<>();
+            for (SupplierLevel supplierLevel : supplierLevelListPre) {
+                SupplierLevelDto dto = new SupplierLevelDto();
+                dto.setId(supplierLevel.getId());
+                dto.setLevel(supplierLevel.getLevel());
+                dto.setRemarks(supplierLevel.getRemarks());
+                dto.setTime(supplierLevel.getTime());
+                Supplier supplier = supplierService.getSupplierById(supplierLevel.getSupplierId());
+                dto.setName(supplier.getName());
+                supplierLevelList.add(dto);
+            }
             //得到总页数
             int pages = getPages(pageData.getLimit());
             pageData.setPages(pages);
@@ -43,15 +58,24 @@ public class SupplierLevelController {
     }
 
     @RequestMapping("editSupplierLevel")
-    public String editSupplier(SupplierLevel supplierLevel, Map<String, Object> map) {
+    public String editSupplierLevel(SupplierLevelDto supplierLevel, Map<String, Object> map) {
         try {
-            supplierLevelService.editSupplierLevel(supplierLevel);
+            Supplier supplier = supplierService.getSupplierByName(supplierLevel.getName());
+            SupplierLevel supplierLevel1 = new SupplierLevel();
+            supplierLevel1.setSupplierId(supplier.getId());
+            supplierLevel1.setId(supplierLevel.getId());
+            supplierLevel1.setTime(supplierLevel.getTime());
+            supplierLevel1.setRemarks(supplierLevel.getRemarks());
+            supplierLevel1.setLevel(supplierLevel.getLevel());
+            supplierLevelService.editSupplierLevel(supplierLevel1);
             map.put("result", "编辑成功");
+            map.put("href", "supplierLevelList");
         } catch (Exception e) {
             map.put("result", "编辑失败");
+            map.put("href", "supplierLevelList");
             e.printStackTrace();
         }
-        return "supplierLevelList";
+        return "result";
     }
 
     @RequestMapping("deleteSupplierLevelById/{id}")
@@ -66,19 +90,33 @@ public class SupplierLevelController {
             return "result";
         }
     }
+
     @RequestMapping("applySupplierLevel")
-    public String applyMeterial(){
+    public String applyMeterial() {
         return "supplierLevel";
     }
 
+    @RequestMapping("addSupplierLevelPre")
+    public String addSupplierLevelPre() {
+        return "add_supplierLevel";
+    }
+
     @RequestMapping("addSupplierLevel")
-    public String addSupplier(SupplierLevel supplierLevel, Map<String, Object> map) {
+    public String addSupplier(SupplierLevelDto dto, Map<String, Object> map) {
         try {
+            String name = dto.getName();
+            Supplier supplier = supplierService.getSupplierByName(name);
+            SupplierLevel supplierLevel = new SupplierLevel();
+            supplierLevel.setId(dto.getId());
+            supplierLevel.setLevel(dto.getLevel());
+            supplierLevel.setRemarks(dto.getRemarks());
+            supplierLevel.setTime(dto.getTime());
+            supplierLevel.setSupplierId(supplier.getId());
             supplierLevelService.addSupplierLevel(supplierLevel);
-            return "redirect:../supplierLevelList";
+            return "redirect:supplierLevelList";
         } catch (Exception e) {
-            map.put("result", "删除失败");
-            map.put("href", "../supplierLevelList");
+            map.put("result", "增加失败");
+            map.put("href", "supplierLevelList");
             e.printStackTrace();
             return "result";
         }
@@ -86,11 +124,19 @@ public class SupplierLevelController {
 
     @RequestMapping("getSupplierLevelById/{id}")
     public String getSupplierById(@PathVariable("id") int id, Map<String, Object> map) {
-        SupplierLevel supplierLevel = null;
+        SupplierLevel supplierLevelPre = null;
         try {
-            supplierLevel = supplierLevelService.getSupplierLevelById(id);
-            map.put("supplier_level", supplierLevel);
-            return "supplierLevel_edit";
+            supplierLevelPre = supplierLevelService.getSupplierLevelById(id);
+            SupplierLevelDto supplierLevel = new SupplierLevelDto();
+            int supplierId = supplierLevelPre.getSupplierId();
+            Supplier supplier = supplierService.getSupplierById(supplierId);
+            supplierLevel.setName(supplier.getName());
+            supplierLevel.setTime(supplierLevelPre.getTime());
+            supplierLevel.setRemarks(supplierLevelPre.getRemarks());
+            supplierLevel.setId(supplierLevelPre.getId());
+            supplierLevel.setLevel(supplierLevelPre.getLevel());
+            map.put("supplierLevel", supplierLevel);
+            return "supplierLevelEdit";
         } catch (Exception e) {
             map.put("error", "暂无信息");
             map.put("result", "查询失败");
@@ -98,6 +144,7 @@ public class SupplierLevelController {
             return "result";
         }
     }
+
     private int getPages(int limit) {
         if (limit == 0) {
             limit = 10;

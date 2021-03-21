@@ -19,4 +19,6 @@ public interface SupplierService {
     void deleteSupplierById(int id);
 
     void addSupplier(Supplier supplier);
+
+    Supplier getSupplierByName(String name);
 }

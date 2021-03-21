@@ -46,8 +46,10 @@ public class DepartmentController {
         try {
             departmentService.editDepartment(department);
             map.put("result", "编辑成功");
+            map.put("href", "departmentList");
         } catch (Exception e) {
             map.put("result", "编辑失败");
+            map.put("href", "departmentList");
             e.printStackTrace();
         }
         return "result";
@@ -57,26 +59,34 @@ public class DepartmentController {
     public String deleteDepartmentById(@PathVariable("id") int id, Map<String, Object> map) {
         try {
             departmentService.deleteDepartmentById(id);
+            map.put("href", "../departmentList");
             return "redirect:../departmentList";
         } catch (Exception e) {
             map.put("result", "删除失败");
             map.put("href", "../departmentList");
             e.printStackTrace();
-            return "result";
         }
+        return "result";
+    }
+
+    @RequestMapping("addDepartmentPre")
+    public String addDepartmentPre() {
+        return "add_department";
     }
 
     @RequestMapping("addDepartment")
     public String addDepartment(Department department, Map<String, Object> map) {
         try {
             departmentService.addDepartment(department);
-            return "redirect:../departmentList";
+            map.put("result", "增加成功");
+            map.put("href", "departmentList");
+            return "redirect:departmentList";
         } catch (Exception e) {
             map.put("result", "增加失败");
-            map.put("href", "../departmentList");
+            map.put("href", "departmentList");
             e.printStackTrace();
-            return "result";
         }
+        return "result";
     }
 
     @RequestMapping("getDepartmentById/{id}")
@@ -89,10 +99,11 @@ public class DepartmentController {
         } catch (Exception e) {
             map.put("error", "暂无信息");
             map.put("result", "查询失败");
-            map.put("href", "../departmentList");
+            map.put("href", "departmentList");
             return "result";
         }
     }
+
     private int getPages(int limit) {
         if (limit == 0) {
             limit = 10;
@@ -103,4 +114,5 @@ public class DepartmentController {
             pages++;
         }
         return pages;
-    }}
+    }
+}

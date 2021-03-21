@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Supplier {
-    Long id;
+    int id;
     String name;
     String address;
     String product;

@@ -2,6 +2,7 @@ package com.csq.mapper;
 
 import com.csq.entity.PageData;
 import com.csq.entity.Supplier;
+import com.csq.entity.SupplierLevel;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface SupplierMapper {
     void deleteSupplierById(int id);
 
     void addSupplier(Supplier supplier);
+
+    Supplier getSupplierByName(String name);
 }

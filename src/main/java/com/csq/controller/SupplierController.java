@@ -47,11 +47,13 @@ public class SupplierController {
         try {
             supplierService.editSupplier(supplier);
             map.put("result", "编辑成功");
+            map.put("href", "supplierList");
         } catch (Exception e) {
             map.put("result", "编辑失败");
+            map.put("href", "supplierList");
             e.printStackTrace();
         }
-        return "supplierList";
+        return "result";
     }
 
     @RequestMapping("deleteSupplierById/{id}")
@@ -72,14 +74,19 @@ public class SupplierController {
         return "supplier";
     }
 
+    @RequestMapping("addSupplierPre")
+    public String addSupplierPre() {
+        return "add_supplier";
+    }
+
     @RequestMapping("addSupplier")
     public String addSupplier(Supplier supplier, Map<String, Object> map) {
         try {
             supplierService.addSupplier(supplier);
-            return "redirect:../supplierList";
+            return "redirect:supplierList";
         } catch (Exception e) {
             map.put("result", "删除失败");
-            map.put("href", "../allMeterial");
+            map.put("href", "supplierList");
             e.printStackTrace();
             return "result";
         }

@@ -33,6 +33,7 @@
         insert into member
         (name,
         sex,
+        department,
         password,
         phone_number
         )
@@ -40,9 +41,13 @@
             (
             #{name},
             #{sex},
+            #{department},
             #{password},
             #{phoneNumber}
             )
     </insert>
 
+    <select id="getMemberByName" resultType="com.csq.entity.Member">
+        select * from member where name = #{username}
+    </select>
 </mapper>

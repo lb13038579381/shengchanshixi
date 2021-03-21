@@ -18,4 +18,6 @@ public interface MemberMapper {
     void deleteMemberById(int id);
 
     void addMember(Member member);
+
+    Member getMemberByName(String username);
 }

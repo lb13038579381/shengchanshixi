@@ -42,6 +42,7 @@ public class MeterialController {
             return "meterial";
         }
     }
+
     @RequestMapping("getMeterialById/{id}")
     public String getMeterialById(@PathVariable("id") int id, Map<String, Object> map) {
         Meterial meterial = null;
@@ -57,23 +58,31 @@ public class MeterialController {
         }
     }
 
+    @RequestMapping("addMeterialPre")
+    public String addMeterialPre() {
+        return "add_meterial";
+    }
+
     @RequestMapping("editMeterial")
     public String editMeterial(Meterial meterial, Map<String, Object> map) {
         try {
             meterialService.editMeterial(meterial);
             map.put("result", "编辑成功");
+            map.put("href", "meterialList");
         } catch (Exception e) {
             map.put("result", "编辑失败");
+            map.put("href", "meterialList");
             e.printStackTrace();
         }
-        return "meterialList";
+        return "result";
     }
 
     @RequestMapping("deleteMeterialById/{id}")
     public String deleteMeterialById(@PathVariable("id") int id, Map<String, Object> map) {
         try {
             meterialService.deleteMeterialById(id);
-            return "redirect:../selectSchoolBusList";
+            map.put("result", "删除成功");
+            return "redirect:../meterialList";
         } catch (Exception e) {
             map.put("result", "删除失败");
             map.put("href", "../meterialList");
@@ -81,8 +90,9 @@ public class MeterialController {
             return "result";
         }
     }
+
     @RequestMapping("applyMeterial")
-    public String applyMeterial(){
+    public String applyMeterial() {
         return "meterialApply";
     }
 
@@ -90,14 +100,17 @@ public class MeterialController {
     public String addMeterial(Meterial meterial, Map<String, Object> map) {
         try {
             meterialService.addMeterial(meterial);
-            return "redirect:../meterialController/allMeterial";
+            map.put("result", "增加成功");
+            map.put("href", "meterialList");
+            return "redirect:meterialList";
         } catch (Exception e) {
-            map.put("result", "删除失败");
-            map.put("href", "../allMeterial");
+            map.put("result", "新增失败");
+            map.put("href", "meterialList");
             e.printStackTrace();
-            return "result";
         }
+        return "result";
     }
+
     private int getPages(int limit) {
         if (limit == 0) {
             limit = 10;

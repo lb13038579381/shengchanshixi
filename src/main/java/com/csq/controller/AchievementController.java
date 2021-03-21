@@ -44,8 +44,10 @@ public class AchievementController {
         try {
             achievementService.editAchievement(achievement);
             map.put("result", "编辑成功");
+            map.put("href","achievementList");
         } catch (Exception e) {
             map.put("result", "编辑失败");
+            map.put("href","achievementList");
             e.printStackTrace();
         }
         return "result";
@@ -55,26 +57,28 @@ public class AchievementController {
     public String deleteMemberById(@PathVariable("id") int id, Map<String, Object> map) {
         try {
             achievementService.deleteAchievementById(id);
-            return "redirect:../achievementList";
+            map.put("result", "删除成功");
+            map.put("href","../achievementList");
         } catch (Exception e) {
             map.put("result", "删除失败");
-            map.put("href", "../achievementList");
+            map.put("href","../achievementList");
             e.printStackTrace();
-            return "result";
         }
+        return "result";
     }
 
     @RequestMapping("addAchievement")
     public String addMember(Achievement achievement, Map<String, Object> map) {
         try {
             achievementService.addAchievement(achievement);
-            return "redirect:../achievementList";
+            map.put("result", "增加成功");
+            return "redirect:achievementList";
         } catch (Exception e) {
             map.put("result", "增加失败");
-            map.put("href", "../achievementList");
+            map.put("href", "achievementList");
             e.printStackTrace();
-            return "result";
         }
+        return "result";
     }
 
     @RequestMapping("getAchievementById/{id}")
@@ -87,7 +91,7 @@ public class AchievementController {
         } catch (Exception e) {
             map.put("error", "暂无信息");
             map.put("result", "查询失败");
-            map.put("href", "../achievementList");
+            map.put("href", "achievementList");
             return "result";
         }
     }

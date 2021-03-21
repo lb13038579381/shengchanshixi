@@ -3,6 +3,7 @@ package com.csq.service.impl;
 import com.csq.entity.Meterial;
 import com.csq.entity.PageData;
 import com.csq.entity.Supplier;
+import com.csq.entity.SupplierLevel;
 import com.csq.mapper.SupplierMapper;
 import com.csq.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +43,10 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public void addSupplier(Supplier supplier) {
         supplierMapper.addSupplier(supplier);
+    }
+
+    @Override
+    public Supplier getSupplierByName(String name) {
+        return supplierMapper.getSupplierByName(name);
     }
 }

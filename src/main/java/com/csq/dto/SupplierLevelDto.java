@@ -1,11 +1,11 @@
-package com.csq.entity;
+package com.csq.dto;
 
 import lombok.Data;
 
 @Data
-public class SupplierLevel {
+public class SupplierLevelDto {
     int id;
-    int supplierId;
+    String name;
     Long time;
     Character level;
     String remarks;

@@ -6,11 +6,13 @@ import com.csq.entity.Meterial;
 import com.csq.entity.PageData;
 import com.csq.service.MemberService;
 import com.csq.utils.DefaultUtils;
+import com.csq.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,11 +48,12 @@ public class MemberController {
         try {
             memberService.editMember(member);
             map.put("result", "编辑成功");
+            map.put("href","memberList");
         } catch (Exception e) {
             map.put("result", "编辑失败");
             e.printStackTrace();
         }
-        return "memberList";
+        return "result";
     }
 
     @RequestMapping("deleteMemberById/{id}")
@@ -66,17 +69,23 @@ public class MemberController {
         }
     }
 
+    @RequestMapping("addMemberPre")
+    public String addMemberPre(Member member) {
+        return "add_member";
+    }
     @RequestMapping("addMember")
     public String addMember(Member member, Map<String, Object> map) {
         try {
+            member.setPassword(MD5Utils.toMD5(member.getPassword()));
             memberService.addMember(member);
-            return "redirect:../memberList";
+            map.put("result","增加成功");
+            return "redirect:memberList";
         } catch (Exception e) {
             map.put("result", "增加失败");
-            map.put("href", "../memberList");
+            map.put("href", "memberList");
             e.printStackTrace();
-            return "result";
         }
+        return "result";
     }
 
 
@@ -84,7 +93,7 @@ public class MemberController {
     public String getMemberById(@PathVariable("id") int id, Map<String, Object> map) {
         Member member = null;
         try {
-            member = memberService.getMeterialById(id);
+            member = memberService.getMemberById(id);
             map.put("member", member);
             return "member_edit";
         } catch (Exception e) {
@@ -94,6 +103,7 @@ public class MemberController {
             return "result";
         }
     }
+
     private int getPages(int limit) {
         if (limit == 0) {
             limit = 10;

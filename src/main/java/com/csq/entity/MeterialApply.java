@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 public class MeterialApply {
     Long id;
     String name;
-    Integer conut;
+    Integer count;
     Long departmentId;
     Long time;
     BigDecimal price;

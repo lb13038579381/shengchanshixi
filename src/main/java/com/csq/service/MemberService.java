@@ -12,11 +12,13 @@ public interface MemberService {
 
     Integer getCount();
 
-    Member getMeterialById(int id);
+    Member getMemberById(int id);
 
     void editMember(Member member);
 
     void deleteMemberById(int id);
 
     void addMember(Member member);
+
+    Member getMemberByName(String username);
 }

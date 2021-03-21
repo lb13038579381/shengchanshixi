@@ -45,8 +45,10 @@ public class MeterialApplyController {
         try {
             meterialApplyService.editMeterialApply(meterialApply);
             map.put("result", "编辑成功");
+            map.put("href","meterialApplyList");
         } catch (Exception e) {
             map.put("result", "编辑失败");
+            map.put("href","meterialApplyList");
             e.printStackTrace();
         }
         return "result";
@@ -66,13 +68,15 @@ public class MeterialApplyController {
     }
 
     @RequestMapping("addMeterialApply")
-    public String addMember(MeterialApply meterialApply, Map<String, Object> map) {
+    public String addMeterialApply(MeterialApply meterialApply, Map<String, Object> map) {
         try {
             meterialApplyService.addMeterialApply(meterialApply);
-            return "redirect:../meterialApplyList";
+            map.put("result","申请成功");
+            map.put("href","index");
+            return "result";
         } catch (Exception e) {
-            map.put("result", "增加失败");
-            map.put("href", "../meterialApplyList");
+            map.put("result", "申请失败");
+            map.put("href", "index");
             e.printStackTrace();
             return "result";
         }

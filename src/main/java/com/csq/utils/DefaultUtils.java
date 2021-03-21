@@ -10,7 +10,21 @@ public class DefaultUtils {
 	
 	//校车列表的分页数默认为10页
 	public static int schoolBuslimit = 10;
-	
+
+	public static PageData defaultPageData() {
+		PageData pageData = new PageData();
+		pageData.setCount(0);
+		pageData.setPages(0);
+		pageData.setCurrentPage(0);
+		pageData.setLimit(0);
+		pageData.setStartPage(0);
+		pageData.setNext(0);
+		pageData.setPrev(0);
+		pageData.setRefresh(0);
+		pageData.setSkip(0);
+		return pageData;
+	}
+
 	public static PageData getPageData(PageData pageData) {
 		if(pageData.getLimit() == 0) {//
 			pageData.setCurrentPage(1);
