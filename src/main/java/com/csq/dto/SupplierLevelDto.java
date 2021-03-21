@@ -6,7 +6,7 @@ import lombok.Data;
 public class SupplierLevelDto {
     int id;
     String name;
-    Long time;
+    String time;
     Character level;
     String remarks;
 }

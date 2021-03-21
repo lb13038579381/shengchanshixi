@@ -6,7 +6,7 @@ import lombok.Data;
 public class SupplierLevel {
     int id;
     int supplierId;
-    Long time;
+    String time;
     Character level;
     String remarks;
 }
