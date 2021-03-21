@@ -41,14 +41,28 @@
 </fieldset>
 <div class="layui-main">
     <!-- <div class="layui-title">编辑信息</div> -->
-    <form class="layui-form" action="/boot/achievementController/editAchievement" method="post" enctype="multipart/form-data">
-        <input name="id" type="hidden" th:value="${achievement.id}">
+    <form class="layui-form" action="/boot/achievementController/addAchievement" method="post" enctype="multipart/form-data">
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-block">
+                <input type="text"  name="name"  required lay-verify="required"
+                       placeholder="请输入姓名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">部门</label>
+            <div class="layui-input-block">
+                <input type="text"  name="department" required lay-verify="required"
+                       placeholder="请输入部门" autocomplete="off" class="layui-input">
+            </div>
+        </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">绩效 </label>
             <div class="layui-input-block">
                 <input type="text" name="level"  id="test2"
-                       placeholder="请输入绩效"   th:value="${achievement.level}" class="layui-input">
+                       placeholder="请输入绩效"   class="layui-input">
             </div>
         </div>
 
@@ -59,8 +73,6 @@
             </div>
         </div>
     </form>
-
-
 </div>
 
 

@@ -36,14 +36,13 @@
         <thead>
         <tr>
             <th>姓名</th>
-            <th>性别</th>
             <th>部门</th>
             <th>绩效</th>
+            <th>操作</th>
         </tr>
         </thead>
         <tr th:each="b: ${achievementList}">
             <td th:text="${b.name}"></td>
-            <td th:text="${b.sex}"></td>
             <td th:text="${b.department}"></td>
             <td th:text="${b.level}"></td>
             <td>
@@ -57,6 +56,8 @@
         </tr>
     </table>
     <!-- 新加代码 start -->
+    <a class="layui-btn-a layui-btn"
+       th:href="'addAchievementPre/'">增加绩效</a>&nbsp;&nbsp;
     <div class="page">
         <div class="layui-box layui-laypage layui-laypage-default"
              id="layui-laypage-1">

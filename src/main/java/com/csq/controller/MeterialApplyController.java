@@ -72,11 +72,11 @@ public class MeterialApplyController {
         try {
             meterialApplyService.addMeterialApply(meterialApply);
             map.put("result","申请成功");
-            map.put("href","index");
+            map.put("href","/boot/meterialController/meterialList");
             return "result";
         } catch (Exception e) {
             map.put("result", "申请失败");
-            map.put("href", "index");
+            map.put("href", "meterialList");
             e.printStackTrace();
             return "result";
         }

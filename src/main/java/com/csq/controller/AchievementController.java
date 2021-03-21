@@ -18,6 +18,7 @@ import java.util.Map;
 public class AchievementController {
     @Autowired
     AchievementService achievementService;
+
     @RequestMapping("achievementList")
     public String getAll(PageData pageData, Map<String, Object> map) {
         try {
@@ -30,7 +31,7 @@ public class AchievementController {
             pageData.setCount(achievementList.size());
             //设置当前页
             map.put("pageData", pageData);
-            map.put("meterialList", achievementList);
+            map.put("achievementList", achievementList);
             map.put("location", "achievementList");
             return "achievement";
         } catch (Exception e) {
@@ -44,10 +45,10 @@ public class AchievementController {
         try {
             achievementService.editAchievement(achievement);
             map.put("result", "编辑成功");
-            map.put("href","achievementList");
+            map.put("href", "achievementList");
         } catch (Exception e) {
             map.put("result", "编辑失败");
-            map.put("href","achievementList");
+            map.put("href", "achievementList");
             e.printStackTrace();
         }
         return "result";
@@ -58,17 +59,22 @@ public class AchievementController {
         try {
             achievementService.deleteAchievementById(id);
             map.put("result", "删除成功");
-            map.put("href","../achievementList");
+            return "redirect:../achievementList";
         } catch (Exception e) {
             map.put("result", "删除失败");
-            map.put("href","../achievementList");
+            map.put("href", "../achievementList");
             e.printStackTrace();
         }
         return "result";
     }
 
+    @RequestMapping("addAchievementPre")
+    public String addAchievementPre() {
+        return "add_achievement";
+    }
+
     @RequestMapping("addAchievement")
-    public String addMember(Achievement achievement, Map<String, Object> map) {
+    public String addAchievement(Achievement achievement, Map<String, Object> map) {
         try {
             achievementService.addAchievement(achievement);
             map.put("result", "增加成功");
@@ -95,6 +101,7 @@ public class AchievementController {
             return "result";
         }
     }
+
     private int getPages(int limit) {
         if (limit == 0) {
             limit = 10;

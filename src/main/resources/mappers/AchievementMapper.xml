@@ -15,10 +15,10 @@
         select * from achievement where id = #{id}
     </select>
     <update id="editAchievement" parameterType="com.csq.entity.Achievement">
-        update meterial
+        update achievement
         <trim prefix="set" suffixOverrides=",">
-            <if test="memberId!=null">member_id=#{memberId},</if>
-            <if test="departmentId!=null">department_id=#{departmentId},</if>
+            <if test="name!=null">name=#{name},</if>
+            <if test="department!=null">department=#{department},</if>
             <if test="level!=null">level=#{level},</if>
         </trim>
         where id = #{id}
@@ -30,14 +30,14 @@
 
     <insert id="addAchievement" parameterType="com.csq.entity.Achievement">
         insert into achievement
-        (member_id,
-        department_id,
+        (name,
+        department,
         level
         )
         values
             (
-            #{memberId},
-            #{departmentId},
+            #{name},
+            #{department},
             #{level}
             )
     </insert>

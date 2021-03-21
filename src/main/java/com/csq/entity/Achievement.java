@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Achievement {
     Long id;
-    Long memberId;
-    Long departmentId;
+    String department;
     Character level;
+    String name;
 }
