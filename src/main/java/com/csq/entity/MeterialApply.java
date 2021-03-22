@@ -9,8 +9,9 @@ public class MeterialApply {
     Long id;
     String name;
     Integer count;
-    Long departmentId;
-    Long time;
+    String department;
+    String time;
     BigDecimal price;
     String remarks;
+    String category;
 }

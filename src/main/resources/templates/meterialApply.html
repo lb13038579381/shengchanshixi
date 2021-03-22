@@ -2,47 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>物资管理</title>
-    <link rel="stylesheet" href="../../layui.css">
-    <link rel="stylesheet" href="../../public.css">
-    <script type="text/javascript" src="../../layui.js"></script>
-    <style type="text/css">
-        .layui-main {
-            width: 500px;
-            height: 100%;
-            border: 1px solid rgb(0, 150, 135);
-            padding: 10px;
-        }
+    <title>物资申请</title>
+    <link rel="stylesheet" href="../layui.css">
+    <link rel="stylesheet" href="../public.css">
+    <script type="text/javascript" src="../layui.js"></script>
+    <script type="text/javascript" src="../page.js"></script>
 
-        body {
-            margin: 10px;
-        }
+    <script type="text/javascript" src="../webjars/jquery/3.4.1/dist/jquery.min.js"></script>
 
-        .demo-carousel {
-            height: 200px;
-            line-height: 200px;
-            text-align: center;
-        }
-
-        .btn {
-            width: 100%;
-            height: 40px;
-        }
-
-        .layui-btn-a {
-            height: 30px;
-            line-height: 30px;
-            padding: 0 10px;
-        }
-
-        .layui-table[lay-size=lg] td {
-            padding: 10px 30px;
-        }
-
-        .layui-title {
-            width: 100%;
-        }
-    </style>
 </head>
 <body>
 
@@ -51,70 +18,112 @@
     <legend>物资申请</legend>
 </fieldset>
 <div class="layui-main">
-    <!-- <div class="layui-title">编辑信息</div> -->
-    <form class="layui-form" action="/boot/meterialApplyController/addMeterialApply" method="post" enctype="multipart/form-data">
-        <div class="layui-form-item">
-            <label class="layui-form-label">申请物资名称</label>
-            <div class="layui-input-block">
-                <input type="text" name="name" required lay-verify="required"
-                       placeholder="请输入申请物资名称" autocomplete="off" class="layui-input">
-            </div>
+    <div class="none" id="location" th:text="${location}"></div>
+    <table class="layui-table" lay-size="lg" >
+        <colgroup>
+            <col width="5%">
+            <col width="10%">
+            <col width="10%">
+            <col width="10%">
+            <col width="10%">
+            <col width="10%">
+            <col width="10%">
+            <col width="15%">
+            <col width="10%">
+            <col width="10%">
+            <col width="10%">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>名称</th>
+            <th>数量</th>
+            <th>分类</th>
+            <th>部门</th>
+            <th>价格</th>
+            <th>时间</th>
+            <th>备注</th>
+            <th>操作</th>
+
+        </tr>
+        </thead>
+        <tr th:each="b: ${meterialApplyList}">
+            <td th:text="${b.name}"></td>
+            <td th:text="${b.count}"></td>
+            <td th:text="${b.category}"></td>
+            <td th:text="${b.department}"></td>
+            <td th:text="${b.price}"></td>
+            <td th:text="${b.time}"></td>
+            <td th:text="${b.remarks}"></td>
+            <td>
+                <div class="edit_delete">&nbsp;&nbsp;
+                    <a class="layui-btn layui-btn-danger layui-btn-a"
+                       th:href="'allowApply/'+${b.id}">通过</a>
+                </div> <!--  <button class="layui-btn" onclick="openBusAddWin(this);">编辑</button>-->
+            </td>
+        </tr>
+    </table>
+    <!-- 新加代码 start -->
+    <div class="page">
+        <div class="layui-box layui-laypage layui-laypage-default"
+             id="layui-laypage-1">
+
+            <a href="javascript:;" class="layui-laypage-pr000000000 ev"
+               onclick="selectSchoolBusList('index');">首页</a>
+            <a href="javascript:;" class="layui-laypage-pr000000000 ev" onclick="selectSchoolBusList('pre');">上一页</a>
+
+            <a href="javascript:;"
+               class="layui-laypage-next" onclick="selectSchoolBusList('next');">下一页</a>
+            <a href="javascript:;"
+               class="layui-laypage-next" onclick="selectSchoolBusList('last');"> 尾页</a>
+            <a href="javascript:;"
+               class="layui-laypage-next">当前第<span id="currentPage" class="num" th:text="${pageData.currentPage}">3</span>页</a>
+            <a href="javascript:;"
+               class="layui-laypage-next">总页数：<span id="pages" class="num" th:text="${pageData.pages}">3</span>页</a>
+            <a href="javascript:;"
+               class="layui-laypage-next">共 计<span id="count" class="num" th:text="${pageData.count}">100 </span>条</a>
+            <span class="layui-laypage-skip">跳转到第<input id="jump" type="text" min="1"
+                                                        value="3" class="layui-input">页
+				<button type="button" class="layui-laypage-btn" onclick="selectSchoolBusList('jump');">确定</button></span>
         </div>
+    </div>
 
-        <div class="layui-form-item">
-            <label class="layui-form-label">申请数量</label>
-            <div class="layui-input-block">
-                <input type="text" name="count" required lay-verify="required"
-                       placeholder="请输入数量" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">物资分类 </label>
-            <div class="layui-input-block">
-                <input type="text" name="category" id="test2" placeholder="请输入分类" class="layui-input">
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">申请部门 </label>
-            <div class="layui-input-block">
-                <input type="text" name="department" id="test3" placeholder="请输入部门"  class="layui-input">
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">物资价格 </label>
-            <div class="layui-input-block">
-                <input type="text" name="price" id="test4" placeholder="请输入价格"  class="layui-input">
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">备注 </label>
-            <div class="layui-input-block">
-                <input type="text" name="remarks" required lay-verify="required" placeholder="请输入备注"  autocomplete="off" class="layui-input">
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-            </div>
-        </div>
-    </form>
-
-
+    <!-- <div class="btn">
+        <button class="layui-btn" onclick="openWin(this);">新增校车信息</button>
+    </div> -->
 </div>
+
+
 
 
 <!-- <script src="//res.layui.com/layui/dist/layui.js" charset="utf-8"></script> -->
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script type="text/javascript">
+    function openWin() {
+        layer.open({
+            type : 2,
+            content : "../school-bus-add.html",
+            area : [ '600px', '600px' ]
+        });
+    }
+    function openBusAddWin() {
+        layer.open({
+            type : 2,
+            content : "../schoolBus_edit.html",
+            area : [ '600px', '600px' ]
+        });
+    }
 
+
+    layui.use('table', function(){
+        var table = layui.table;
+        //监听表格复选框选择
+
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
 </script>
-
 
 </body>
 </html>

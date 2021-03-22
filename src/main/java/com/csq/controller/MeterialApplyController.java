@@ -1,9 +1,11 @@
 package com.csq.controller;
 
 import com.csq.entity.Member;
+import com.csq.entity.Meterial;
 import com.csq.entity.MeterialApply;
 import com.csq.entity.PageData;
 import com.csq.service.MeterialApplyService;
+import com.csq.service.MeterialService;
 import com.csq.utils.DefaultUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,8 @@ public class MeterialApplyController {
     @Autowired
     MeterialApplyService meterialApplyService;
 
+    @Autowired
+    MeterialService meterialService;
     @RequestMapping("meterialApplyList")
     public String getAll(PageData pageData, Map<String, Object> map) {
         try {
@@ -45,10 +49,10 @@ public class MeterialApplyController {
         try {
             meterialApplyService.editMeterialApply(meterialApply);
             map.put("result", "编辑成功");
-            map.put("href","meterialApplyList");
+            map.put("href", "meterialApplyList");
         } catch (Exception e) {
             map.put("result", "编辑失败");
-            map.put("href","meterialApplyList");
+            map.put("href", "meterialApplyList");
             e.printStackTrace();
         }
         return "result";
@@ -71,8 +75,8 @@ public class MeterialApplyController {
     public String addMeterialApply(MeterialApply meterialApply, Map<String, Object> map) {
         try {
             meterialApplyService.addMeterialApply(meterialApply);
-            map.put("result","申请成功");
-            map.put("href","/boot/meterialController/meterialList");
+            map.put("result", "申请成功");
+            map.put("href", "/boot/meterialController/meterialList");
             return "result";
         } catch (Exception e) {
             map.put("result", "申请失败");
@@ -97,6 +101,31 @@ public class MeterialApplyController {
             return "result";
         }
     }
+
+    @RequestMapping("allowApply/{id}")
+    public String allowApply(@PathVariable("id") int id, Map<String, Object> map) {
+        MeterialApply meterialApply = null;
+        try {
+            meterialApply = meterialApplyService.getMeterialApplyById(id);
+            Meterial meterial = new Meterial();
+            meterial.setCategory(meterialApply.getCategory());
+            meterial.setName(meterialApply.getName());
+            meterial.setCount(meterialApply.getCount());
+            meterial.setPrice(meterialApply.getPrice());
+            meterial.setRemarks(meterialApply.getRemarks());
+            meterialService.addMeterial(meterial);
+            meterialApplyService.deleteMeterialApplyById(id);
+            map.put("result","操作成功");
+            map.put("href","meterialApplyList");
+            return "redirect:../meterialApplyList";
+        }catch (Exception e) {
+            e.printStackTrace();
+            map.put("result","操作失败");
+            map.put("href","meterialApplyList");
+            return "result";
+        }
+    }
+
     private int getPages(int limit) {
         if (limit == 0) {
             limit = 10;
